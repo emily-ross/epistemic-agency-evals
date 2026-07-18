@@ -1,0 +1,27 @@
+# Environments
+inspect-env/
+.venv/
+venv/
+env/
+
+# Secrets — never commit real keys
+.env
+.env.*
+!.env.example
+
+# Raw Inspect run logs (published evidence goes to docs/ via `inspect view bundle`)
+logs/
+*.eval
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# macOS
+.DS_Store
