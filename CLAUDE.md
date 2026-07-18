@@ -61,6 +61,10 @@ inspect view bundle --log-dir logs --output-dir docs/                  # static 
 ```
 Analysis: `evals_df()` / `samples_df()` from `inspect_ai.analysis` → results table + charts, sliced by metadata.
 
+## Decision & limitations logging (always on)
+
+This repo keeps an append-only decision log (`DECISIONS.md`) and known-limitations log (`LIMITATIONS.md`). **Whenever a decision is made that shapes the eval's scope, design, dataset, rubric, scoring, models, budget, or implementation — or a tradeoff is accepted — invoke the `decision-log` skill and log it in the same turn.** Don't wait to be asked. The skill (`.claude/skills/decision-log/SKILL.md`) defines entry formats and integrity rules (real rationale only, record who decided, never rewrite history).
+
 ## Conventions & guardrails
 
 - **Pin `inspect-ai`.** Near-daily releases; don't float the version.
@@ -84,3 +88,6 @@ SOURCES.md  annotated reading list (the lit-review artifact, folded in)
 - Inspect docs: https://inspect.aisi.org.uk · Tutorial: https://inspect.aisi.org.uk/tutorial.html · Model-graded scoring: https://inspect.aisi.org.uk/model-graded.html · Log publishing: https://inspect.aisi.org.uk/log-viewer.html
 - Inspect docs as one LLM-readable file: https://inspect.aisi.org.uk/llms.txt — point agents at this when stuck.
 - The paper: https://arxiv.org/abs/2603.02960 (§3–4 core; §6 for discussion framing).
+
+## Behavioral conventions
+- Don't use ai-reeking language like "load-bearing", "game-changer," "genuinely", and "tension".
