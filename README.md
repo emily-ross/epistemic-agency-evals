@@ -1,10 +1,10 @@
 # Epistemic Agency Evals
 
-A **pilot** evaluation, built on [Inspect](https://inspect.aisi.org.uk) (UK AISI's open-source eval framework), measuring whether frontier language models **scaffold** a user's reasoning or **substitute** for it — when someone is trying to learn, does the model coach them, or just hand over the finished answer?
+A pilot eval, built on [Inspect](https://inspect.aisi.org.uk), that aims to measure one dimension of model alignment with individual, longterm epistemic goods, as described in Marchal et al. 2026, *Architecting Trust in Artificial Epistemic Agents* ([arXiv:2603.02960](https://arxiv.org/abs/2603.02960), §4.2): whether frontier language models **scaffold** a user's reasoning or **substitute** for it, in situations where neither is explicitly requested. This behavior was selected because if exhibited frequently enough in certain types of situations, it could lead to cognitive deskilling.  
 
-The behavior comes from Marchal et al. 2026, *Architecting Trust in Artificial Epistemic Agents* ([arXiv:2603.02960](https://arxiv.org/abs/2603.02960), §4.2): when a user signals a learning goal, a model that produces the completed output *substitutes* for their reasoning (the deskilling-relevant failure); one that asks what they think, flags weaknesses, and prompts revision *scaffolds* it.
+The behavior comes from : when a user signals a learning goal, a model that produces the completed output *substitutes* for their reasoning (the deskilling-relevant failure); one that asks what they think, flags weaknesses, and prompts revision *scaffolds* it.
 
-> ⚠️ **Status: work in progress (pilot).** This is a small, self-directed study project — **not a benchmark**, and **not affiliated with or endorsed by** UK AISI, the Inspect maintainers, or the paper's authors. It builds on their public work. Dataset, results across models, and a full write-up (with limitations foregrounded) will land here as the pilot progresses.
+> ⚠️ **Status: work in progress.** This is a small, self-directed study project — **not a benchmark**, and **not affiliated with or endorsed by** UK AISI, the Inspect maintainers, or the paper's authors. It builds on their public work. Dataset, results across models, and a full write-up (with limitations foregrounded) will land here as the pilot progresses.
 
 ## Plan
 
