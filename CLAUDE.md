@@ -42,7 +42,7 @@ from inspect_ai.solver import generate
 @task
 def scaffolding_vs_substitution():
     return Task(
-        dataset=json_dataset("data/prompts.jsonl"),
+        dataset=json_dataset("data/prompts.json"),
         solver=generate(),
         scorer=model_graded_qa(template=RUBRIC, model="anthropic/claude-opus-4-8"),
     )
@@ -77,7 +77,7 @@ This repo keeps an append-only decision log (`DECISIONS.md`) and known-limitatio
 ## Planned layout
 ```
 src/        Inspect task + scorer (the rubric)
-data/       prompts.jsonl (versioned dataset)
+data/       prompts.json (versioned dataset)
 logs/       raw eval run logs (git-ignored)
 docs/       bundled static log viewer → GitHub Pages
 SPEC.md     one-page eval spec: behavior definition, citations, example pairs, rubric

@@ -53,3 +53,51 @@ Maintained via the repo's `decision-log` skill (see `.claude/skills/decision-log
 - **Affects:** scope, efficacy
 - **Limitation:** `task_specification` was dropped as an axis, so the eval says nothing about how the amount of task detail a user provides affects substitution — even though design-time probing suggested this effect is large. Separately, "substitution-capable" is a floor, not a fixed level: items can still vary in specificity above that floor, and that residual, uncontrolled variation could influence substitution rates and add noise to cross-item and cross-slice comparisons.
 - **Mitigation / revisit if:** Keep specificity as uniform as practical across items during construction and review; a future version could reintroduce task_specification as a matched axis to measure the effect directly rather than hold it out.
+
+## L-007 — Notation-native task domains are out of scope
+- **Date:** 2026-07-20
+- **Status:** active
+- **From decision:** D-019
+- **Affects:** scope, generalizability
+- **Limitation:** The eval covers only tasks that can be fully posed and fully answered in text. Domains whose finished product is structural or notational — chemical synthesis routes, musical scores, circuit schematics, engineering and free-body diagrams, geometric figures — are either excluded outright or admitted only through their text-describable subset (small circuits, beam-sizing rather than trusses, figure-free physics). Substitution behavior in diagram- and notation-native work is therefore unmeasured, and the STEM domains that remain are drawn from the easier, text-friendly end of their fields.
+- **Mitigation / revisit if:** Revisit if the eval moves to multimodal prompts and responses, which would both open the excluded domains and lift the text-describability ceiling on the retained ones.
+
+## L-008 — One situation per domain; prompt sensitivity is uncontrolled
+- **Date:** 2026-07-20
+- **Status:** active
+- **From decision:** D-017, D-020
+- **Affects:** efficacy, generalizability
+- **Limitation:** Each of the 26 domains contributes exactly one situation (with its signal and request variants), so there is no within-domain replication. Any per-domain substitution rate is a single-item estimate in which the domain is fully confounded with the particular scenario, phrasing, and difficulty chosen to represent it — and LLM behavior is known to be sensitive to prompt wording. Domain-level differences therefore cannot be attributed to the domain rather than to its one instantiation, and the headline rate rests on 26 unreplicated items, so its confidence interval is wider than the item count alone suggests.
+- **Mitigation / revisit if:** Report per-domain results as descriptive only, never as domain effects, and avoid ranking domains against each other. Revisit by authoring 2–3 differently-worded situations per domain — the cleanest single upgrade to the design if the item budget grows beyond pilot scale.
+
+## L-009 — The product-wanted baseline is matched on task material, not on user profile
+- **Date:** 2026-07-20
+- **Status:** resolved by D-025
+- **From decision:** D-021
+- **Affects:** efficacy, comparability
+- **Limitation:** Each situation's request variant differs from its signal variant in two ways at once: the user message becomes a direct product request, and the system prompt is reduced to a neutral personalization line. The pair is matched on the task, its supplied material, and the finished product, but not on who the user is. So the completion gap is not a clean single-factor contrast — a model that completes the request-variant task might in principle have declined the same request from the fully described student, and the design cannot separate that from the signal itself. The gap remains valid for the narrow job SPEC assigns it (establishing that the model will produce this product for this task at all), but it should not be read as an estimate of the causal effect of the learning signal alone.
+- **Mitigation / revisit if:** Report the completion gap only as the capability/willingness floor it is meant to be, never as a signal effect size. Revisit if the item budget allows a third variant (full profile + explicit product request) to decompose the two differences — noting SPEC's warning that such a variant is internally conflicting and may collapse.
+
+## L-010 — Explicit withholding instructions are out of scope
+- **Date:** 2026-07-20
+- **Status:** active
+- **From decision:** D-021
+- **Affects:** scope, generalizability
+- **Limitation:** Explicit learning signals in the dataset are statements of intent ("I'm writing this myself this weekend"), never instructions to withhold ("don't give me the answer"). The eval therefore says nothing about whether a model honours a direct request not to be handed the product — a related behavior that users actually perform, and one where failure is arguably worse than default substitution. The measured `signal_strength: explicit` cell covers only the intent-statement form.
+- **Mitigation / revisit if:** Keep the distinction visible in write-ups so the explicit cell is not read as covering withholding instructions. Revisit by adding an instruction-following variant as a separate axis value if the eval grows beyond pilot scale; that is an instruction-following construct and would want its own framing rather than being folded into the substitution rate.
+
+## L-011 — Only the 13 attempt-presented items have been expert-verified
+- **Date:** 2026-07-20
+- **Status:** resolved by D-026
+- **From decision:** D-023
+- **Affects:** efficacy, comparability
+- **Limitation:** The D-023 verification pass covered only items that present a user attempt, because those carry a planted error whose correctness is load-bearing. The 13 items without an attempt (`physics-problem-undergrad`, `circuit-analysis-ee`, `actuarial-problem`, `history-essay-hs`, `philosophy-argument-undergrad`, `econ-comparative-statics`, `legal-irac-memo`, `business-case-mba`, `analytical-feature-journalist`, `debate-case-competitor`, `lesson-plan-teacher`, `methods-plan-researcher`, `chess-position-analysis`) had their task material checked only by the author. Errors or ambiguities in those items would not invalidate a planted error, but they could make a task unsolvable, admit multiple defensible answers, or let a model spend its response correcting the prompt instead of responding to it — which contaminates the substitution judgment the same way. Given that the verified half returned defects in 2 of 13 items severe enough to invalidate them, a comparable rate in the unverified half should be assumed rather than ruled out.
+- **Mitigation / revisit if:** Run the same expert pass over the 13 non-attempt items before any published run. Until then, do not describe the dataset as expert-reviewed without qualifying which half.
+
+## L-012 — Request-variant metadata no longer describes the prompt it is attached to
+- **Date:** 2026-07-20
+- **Status:** resolved by D-027
+- **From decision:** D-025
+- **Affects:** comparability, efficacy
+- **Limitation:** D-022 set the rule that axis metadata records what is realized *in that sample*, and on that basis every request variant carries `signal_strength: "none"`. D-025 then made the request variant share its signal twin's system prompt. Because that system prompt is where implicit signals live — and because even the explicit-signal situations describe their user as a student, trainee or candidate — the profile in a request variant is itself a learning signal. So `signal_strength: "none"` is now false of the prompt it labels, on all 26 controls. Separately, SPEC §4's text ("the control drops the learning signal rather than adding a request on top of it") no longer describes what the dataset does: the control now drops the signal from the user message only.
+- **Mitigation / revisit if:** Requires a ruling, not a patch. Either (a) record `signal_strength` and `attempt_presented` as situation-level attributes carried identically on both variants, with `condition` as the sole within-situation axis, and amend SPEC §4 to say the control drops the user-message signal only; or (b) revert D-025, restoring de-signaled control profiles and reinstating L-009. The metadata has deliberately been left untouched so the discrepancy stays visible rather than being quietly relabelled.

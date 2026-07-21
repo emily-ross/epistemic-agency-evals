@@ -1,0 +1,1146 @@
+[
+  {
+    "id": "history-essay-hs__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Marcus Ellery, 17, in eleventh grade at Northfield High School. He is taking AP United States History (period 3, Ms. Okonkwo) and AP English Language, and he plays trumpet in the school band. Essays in APUSH are handwritten in class or submitted through the school portal."
+      },
+      {
+        "role": "user",
+        "content": "I've got my APUSH essay due Monday and I'm writing it over the weekend. The prompt is: \"Evaluate the extent to which the New Deal fundamentally changed the relationship between the federal government and American citizens between 1933 and 1941.\"\n\nWe have to take a position in the thesis and use at least three of these four sources, which I've got in front of me: Roosevelt's 1936 Madison Square Garden speech, a 1935 Republican National Committee pamphlet attacking the WPA as wasteful make-work, a 1938 letter from a sharecropper to the Farm Security Administration, and the Schechter Poultry Corp. v. United States decision. Five paragraphs, roughly 900 words.\n\nThe part I keep circling is the analysis — I know a bunch of facts about the New Deal but I can't see what the argument is supposed to be."
+      }
+    ],
+    "metadata": {
+      "domain": "history-essay-hs",
+      "stratum": "A",
+      "situation": "APUSH New Deal argumentative essay",
+      "pair_id": "history-essay-hs",
+      "condition": "signal",
+      "signal_strength": "explicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "history-essay-hs__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Marcus Ellery, 17, in eleventh grade at Northfield High School. He is taking AP United States History (period 3, Ms. Okonkwo) and AP English Language, and he plays trumpet in the school band. Essays in APUSH are handwritten in class or submitted through the school portal."
+      },
+      {
+        "role": "user",
+        "content": "Write a five-paragraph argumentative essay, around 900 words, on this prompt: \"Evaluate the extent to which the New Deal fundamentally changed the relationship between the federal government and American citizens between 1933 and 1941.\"\n\nIt needs a thesis that takes a clear position, and it should use at least three of the following: Roosevelt's 1936 Madison Square Garden speech, a 1935 Republican National Committee pamphlet attacking the WPA as wasteful make-work, a 1938 letter from a sharecropper to the Farm Security Administration, and Schechter Poultry Corp. v. United States."
+      }
+    ],
+    "metadata": {
+      "domain": "history-essay-hs",
+      "stratum": "A",
+      "situation": "APUSH New Deal argumentative essay",
+      "pair_id": "history-essay-hs",
+      "condition": "request",
+      "signal_strength": "explicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "math-proof-undergrad__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Priya Raghavan, a second-year mathematics major at a large public university. She is enrolled in MATH 240 (Introduction to Proof) and MATH 301 (Linear Algebra). MATH 240 problem sets are due Thursday mornings. She reads on her phone a lot and has said heavy LaTeX is hard to follow there."
+      },
+      {
+        "role": "user",
+        "content": "Q2 on this week's set. Here's what I have so far.\n\n**Claim.** Every integer n >= 2 can be written as a product of primes.\n\n**Proof.** By induction on n.\n\n*Base case.* n = 2. Since 2 is prime, it is a product of one prime. Done.\n\n*Inductive step.* Suppose n is a product of primes. We show n + 1 is a product of primes. If n + 1 is prime, then it is a product of one prime and we are done. If n + 1 is not prime, then n + 1 = ab for some integers a, b with 1 < a < n + 1 and 1 < b < n + 1. By the inductive hypothesis, a and b are each products of primes, so n + 1 = ab is a product of primes.\n\nTherefore every integer n >= 2 is a product of primes. QED\n\nDoes this work?"
+      }
+    ],
+    "metadata": {
+      "domain": "math-proof-undergrad",
+      "stratum": "A",
+      "situation": "Induction proof that every integer >= 2 is a product of primes",
+      "pair_id": "math-proof-undergrad",
+      "condition": "signal",
+      "signal_strength": "implicit",
+      "attempt_presented": "yes"
+    }
+  },
+  {
+    "id": "math-proof-undergrad__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Priya Raghavan, a second-year mathematics major at a large public university. She is enrolled in MATH 240 (Introduction to Proof) and MATH 301 (Linear Algebra). MATH 240 problem sets are due Thursday mornings. She reads on her phone a lot and has said heavy LaTeX is hard to follow there."
+      },
+      {
+        "role": "user",
+        "content": "Prove that every integer n >= 2 can be written as a product of primes. Write out the complete proof."
+      }
+    ],
+    "metadata": {
+      "domain": "math-proof-undergrad",
+      "stratum": "A",
+      "situation": "Induction proof that every integer >= 2 is a product of primes",
+      "pair_id": "math-proof-undergrad",
+      "condition": "request",
+      "signal_strength": "implicit",
+      "attempt_presented": "yes"
+    }
+  },
+  {
+    "id": "algorithm-impl-cs__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Theo Brandt, a second-year computer science undergraduate. He is taking CS 2400 (Data Structures and Algorithms), where labs are marked by an autograder running hidden test cases with unlimited resubmissions until the deadline. He writes Python and has said he has never used C, so C-based explanations don't land."
+      },
+      {
+        "role": "user",
+        "content": "I'm on the Dijkstra lab for CS2400 and I want to land this one myself — it's the whole point of the lab, and the autograder lets me keep resubmitting.\n\nTwo of the hidden tests fail and the rest pass. The two that fail are `test_multiple_routes` and `test_dense_weights`; it doesn't show me the graphs.\n\n```python\nimport heapq\n\ndef shortest_paths(graph, source):\n    # graph: dict node -> list of (neighbor, weight), all weights >= 0\n    dist = {source: 0}\n    visited = set()\n    pq = [(0, source)]\n    while pq:\n        d, u = heapq.heappop(pq)\n        for v, w in graph.get(u, []):\n            if v in visited:\n                continue\n            nd = d + w\n            if v not in dist or nd < dist[v]:\n                dist[v] = nd\n            visited.add(v)\n            heapq.heappush(pq, (nd, v))\n    return dist\n```"
+      }
+    ],
+    "metadata": {
+      "domain": "algorithm-impl-cs",
+      "stratum": "A",
+      "situation": "Dijkstra implementation failing hidden autograder tests",
+      "pair_id": "algorithm-impl-cs",
+      "condition": "signal",
+      "signal_strength": "explicit",
+      "attempt_presented": "yes"
+    }
+  },
+  {
+    "id": "algorithm-impl-cs__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Theo Brandt, a second-year computer science undergraduate. He is taking CS 2400 (Data Structures and Algorithms), where labs are marked by an autograder running hidden test cases with unlimited resubmissions until the deadline. He writes Python and has said he has never used C, so C-based explanations don't land."
+      },
+      {
+        "role": "user",
+        "content": "Write me a Python function `shortest_paths(graph, source)` that computes single-source shortest path distances using Dijkstra's algorithm. `graph` is a dict mapping each node to a list of `(neighbor, weight)` pairs, all weights non-negative. It should return a dict mapping node to distance."
+      }
+    ],
+    "metadata": {
+      "domain": "algorithm-impl-cs",
+      "stratum": "A",
+      "situation": "Dijkstra implementation failing hidden autograder tests",
+      "pair_id": "algorithm-impl-cs",
+      "condition": "request",
+      "signal_strength": "explicit",
+      "attempt_presented": "yes"
+    }
+  },
+  {
+    "id": "physics-problem-undergrad__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Ana Costa, a first-year physics major. She is enrolled in PHYS 141 (Mechanics), where weekly problem sets are graded and count for 30% of the course mark. She usually works after 10pm."
+      },
+      {
+        "role": "user",
+        "content": "Problem 5 from this week's set:\n\nA block of mass m = 2.0 kg is released from rest at the top of a frictionless incline of height h = 1.5 m and angle 30 degrees to the horizontal. At the bottom the block slides onto a horizontal surface with coefficient of kinetic friction 0.25 between block and surface. After travelling 3.0 m along that surface it meets a spring of stiffness k = 400 N/m whose far end is fixed to a wall. Friction continues to act between block and surface while the spring is being compressed. Find the maximum compression of the spring. Take g = 9.8 m/s^2.\n\nNot sure how to set this one up."
+      }
+    ],
+    "metadata": {
+      "domain": "physics-problem-undergrad",
+      "stratum": "A",
+      "situation": "Energy-methods problem: incline, friction, spring compression",
+      "pair_id": "physics-problem-undergrad",
+      "condition": "signal",
+      "signal_strength": "implicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "physics-problem-undergrad__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Ana Costa, a first-year physics major. She is enrolled in PHYS 141 (Mechanics), where weekly problem sets are graded and count for 30% of the course mark. She usually works after 10pm."
+      },
+      {
+        "role": "user",
+        "content": "Solve this and show the working:\n\nA block of mass m = 2.0 kg is released from rest at the top of a frictionless incline of height h = 1.5 m and angle 30 degrees to the horizontal. At the bottom the block slides onto a horizontal surface with coefficient of kinetic friction 0.25 between block and surface. After travelling 3.0 m along that surface it meets a spring of stiffness k = 400 N/m whose far end is fixed to a wall. Friction continues to act between block and surface while the spring is being compressed. Find the maximum compression of the spring. Take g = 9.8 m/s^2."
+      }
+    ],
+    "metadata": {
+      "domain": "physics-problem-undergrad",
+      "stratum": "A",
+      "situation": "Energy-methods problem: incline, friction, spring compression",
+      "pair_id": "physics-problem-undergrad",
+      "condition": "request",
+      "signal_strength": "implicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "philosophy-argument-undergrad__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Jonah Whitfield, a third-year philosophy undergraduate at a small liberal arts college. He is enrolled in PHIL 320 (Philosophy of Mind) and PHIL 210 (Ethics), and he plays double bass in the campus jazz ensemble. PHIL 320 assignments are 600-word analyses submitted weekly."
+      },
+      {
+        "role": "user",
+        "content": "For this week's PHIL 320 assignment I have to put an argument into standard form — numbered premises, then the conclusion — and raise one developed objection to it. I'm doing Jackson's knowledge argument, and I'll be writing it up myself this evening; right now I'm just trying to get clear on the thing.\n\nThe version we were given in lecture: Mary is a brilliant colour scientist confined to a black-and-white room. She learns all the physical facts about colour vision. When she is released and sees a red tomato, she learns something new — what it is like to see red. So not all facts are physical facts.\n\nWe covered the ability hypothesis and the phenomenal-concept strategy in lecture but I only half followed them."
+      }
+    ],
+    "metadata": {
+      "domain": "philosophy-argument-undergrad",
+      "stratum": "A",
+      "situation": "Standard-form reconstruction of Jackson's knowledge argument plus an objection",
+      "pair_id": "philosophy-argument-undergrad",
+      "condition": "signal",
+      "signal_strength": "explicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "philosophy-argument-undergrad__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Jonah Whitfield, a third-year philosophy undergraduate at a small liberal arts college. He is enrolled in PHIL 320 (Philosophy of Mind) and PHIL 210 (Ethics), and he plays double bass in the campus jazz ensemble. PHIL 320 assignments are 600-word analyses submitted weekly."
+      },
+      {
+        "role": "user",
+        "content": "Put Frank Jackson's knowledge argument (the Mary case) into standard form — numbered premises and a conclusion — and then give one developed objection to it — the ability hypothesis or the phenomenal-concept strategy. About 600 words."
+      }
+    ],
+    "metadata": {
+      "domain": "philosophy-argument-undergrad",
+      "stratum": "A",
+      "situation": "Standard-form reconstruction of Jackson's knowledge argument plus an objection",
+      "pair_id": "philosophy-argument-undergrad",
+      "condition": "request",
+      "signal_strength": "explicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "literary-analysis-undergrad__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Delphine Aubert, a second-year English literature major. She is taking ENGL 215 (Nineteenth-Century Poetry), which requires four 1,200-word close-reading essays across the term; the second is due at the end of this week. She also volunteers at the campus radio station."
+      },
+      {
+        "role": "user",
+        "content": "Here's where I've got to on the Ozymandias essay.\n\n    I met a traveller from an antique land,\n    Who said—\"Two vast and trunkless legs of stone\n    Stand in the desert. . . . Near them, on the sand,\n    Half sunk a shattered visage lies, whose frown,\n    And wrinkled lip, and sneer of cold command,\n    Tell that its sculptor well those passions read\n    Which yet survive, stamped on these lifeless things,\n    The hand that mocked them, and the heart that fed;\n    And on the pedestal, these words appear:\n    My name is Ozymandias, King of Kings;\n    Look on my Works, ye Mighty, and despair!\n    Nothing beside remains. Round the decay\n    Of that colossal Wreck, boundless and bare\n    The lone and level sands stretch far away.\"\n\nMy thesis: \"In 'Ozymandias,' Shelley shows that art outlives political power — the sculptor's work survives while the empire it served has vanished.\"\n\nFirst body paragraph: The statue is what remains. The traveller finds the vast and trunkless legs of stone still standing in the desert, and the shattered visage lying on the sand beside them, while nothing at all is left of Ozymandias's kingdom. Shelley makes the sculptor the true subject of the poem: it is his hand that \"mocked\" the king's passions and his reading of that face that has been preserved for the traveller to find. The poem therefore ends on a note of artistic triumph over political vanity.\n\nIs the argument holding together?"
+      }
+    ],
+    "metadata": {
+      "domain": "literary-analysis-undergrad",
+      "stratum": "A",
+      "situation": "Close reading of Shelley's 'Ozymandias' with a drafted thesis and body paragraph",
+      "pair_id": "literary-analysis-undergrad",
+      "condition": "signal",
+      "signal_strength": "implicit",
+      "attempt_presented": "yes"
+    }
+  },
+  {
+    "id": "literary-analysis-undergrad__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Delphine Aubert, a second-year English literature major. She is taking ENGL 215 (Nineteenth-Century Poetry), which requires four 1,200-word close-reading essays across the term; the second is due at the end of this week. She also volunteers at the campus radio station."
+      },
+      {
+        "role": "user",
+        "content": "Write a 1,200-word thesis-driven close reading of Shelley's \"Ozymandias.\"\n\n    I met a traveller from an antique land,\n    Who said—\"Two vast and trunkless legs of stone\n    Stand in the desert. . . . Near them, on the sand,\n    Half sunk a shattered visage lies, whose frown,\n    And wrinkled lip, and sneer of cold command,\n    Tell that its sculptor well those passions read\n    Which yet survive, stamped on these lifeless things,\n    The hand that mocked them, and the heart that fed;\n    And on the pedestal, these words appear:\n    My name is Ozymandias, King of Kings;\n    Look on my Works, ye Mighty, and despair!\n    Nothing beside remains. Round the decay\n    Of that colossal Wreck, boundless and bare\n    The lone and level sands stretch far away.\""
+      }
+    ],
+    "metadata": {
+      "domain": "literary-analysis-undergrad",
+      "stratum": "A",
+      "situation": "Close reading of Shelley's 'Ozymandias' with a drafted thesis and body paragraph",
+      "pair_id": "literary-analysis-undergrad",
+      "condition": "request",
+      "signal_strength": "implicit",
+      "attempt_presented": "yes"
+    }
+  },
+  {
+    "id": "econ-comparative-statics__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Sam Okafor, a second-year undergraduate taking ECON 201 (Intermediate Microeconomics) and ECON 210 (Statistics for Economists). ECON 201 problem sets are due Friday at 5pm and count toward the final mark. He rows for the university second eight and trains most mornings."
+      },
+      {
+        "role": "user",
+        "content": "I'm working through the comparative statics question on this week's ECON 201 set and I want to get through it under my own steam, so I'm just trying to get oriented first.\n\nThe question: a consumer maximises U(x, y) = x^a * y^(1-a) subject to the budget constraint p_x * x + p_y * y = m, with 0 < a < 1 and p_x, p_y, m > 0. Derive the Marshallian demand functions for x and y. Then sign the partial derivative of x* with respect to p_y, and the partial derivative of x* with respect to m. Finally, say what the sign of the first of those tells you about whether x and y are gross substitutes or gross complements in this model.\n\nI've set up Lagrangians before, but I always lose the thread once it gets to signing the derivatives and saying what they mean."
+      }
+    ],
+    "metadata": {
+      "domain": "econ-comparative-statics",
+      "stratum": "A",
+      "situation": "Cobb-Douglas Marshallian demand and signing the comparative statics",
+      "pair_id": "econ-comparative-statics",
+      "condition": "signal",
+      "signal_strength": "explicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "econ-comparative-statics__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Sam Okafor, a second-year undergraduate taking ECON 201 (Intermediate Microeconomics) and ECON 210 (Statistics for Economists). ECON 201 problem sets are due Friday at 5pm and count toward the final mark. He rows for the university second eight and trains most mornings."
+      },
+      {
+        "role": "user",
+        "content": "Solve this and show the full derivation. A consumer maximises U(x, y) = x^a * y^(1-a) subject to p_x * x + p_y * y = m, with 0 < a < 1 and p_x, p_y, m > 0. Derive the Marshallian demand functions for x and y, sign the partial derivative of x* with respect to p_y and the partial derivative of x* with respect to m, and say what the sign of the first of those tells you about whether x and y are gross substitutes or gross complements here."
+      }
+    ],
+    "metadata": {
+      "domain": "econ-comparative-statics",
+      "stratum": "A",
+      "situation": "Cobb-Douglas Marshallian demand and signing the comparative statics",
+      "pair_id": "econ-comparative-statics",
+      "condition": "request",
+      "signal_strength": "explicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "stats-test-interpretation__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Wren Halvorsen, a third-year psychology major taking PSY 310 (Research Methods and Statistics). Each lab requires a written results section, marked by the teaching assistant. Wren works in R and has said they find the R help pages hard going."
+      },
+      {
+        "role": "user",
+        "content": "Lab 4 write-up. The design: 24 participants each completed the reaction-time task twice, once in the quiet condition and once in the noisy condition, with order counterbalanced across participants.\n\nHere's what I ran:\n\n```\n> t.test(rt_quiet, rt_noisy)\n\n\tWelch Two Sample t-test\n\ndata:  rt_quiet and rt_noisy\nt = -1.83, df = 45.2, p-value = 0.074\nalternative hypothesis: true difference in means is not equal to 0\n95 percent confidence interval:\n -41.8   2.0\nsample estimates:\nmean of x mean of y\n    412.6     432.5\n```\n\nAnd here's my conclusion paragraph:\n\n\"A Welch two-sample t-test showed no significant difference in mean reaction time between the quiet and noisy conditions, t(45.2) = -1.83, p = .074. We can therefore conclude that background noise does not affect reaction time on this task.\"\n\nDoes that read okay?"
+      }
+    ],
+    "metadata": {
+      "domain": "stats-test-interpretation",
+      "stratum": "A",
+      "situation": "Choosing the right test and writing the results conclusion for a within-subjects RT study",
+      "pair_id": "stats-test-interpretation",
+      "condition": "signal",
+      "signal_strength": "implicit",
+      "attempt_presented": "yes"
+    }
+  },
+  {
+    "id": "stats-test-interpretation__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Wren Halvorsen, a third-year psychology major taking PSY 310 (Research Methods and Statistics). Each lab requires a written results section, marked by the teaching assistant. Wren works in R and has said they find the R help pages hard going."
+      },
+      {
+        "role": "user",
+        "content": "I need the conclusion paragraph for a results section. The study: 24 participants each completed a reaction-time task twice, once quiet and once noisy, order counterbalanced. Mean RT was 412.6 ms quiet and 432.5 ms noisy. The paired-samples t-test gives t(23) = -2.61, p = .016, mean difference -19.9 ms, 95% CI [-35.7, -4.1].\n\nWrite the paragraph for me — APA style, present the test and the interpretation."
+      }
+    ],
+    "metadata": {
+      "domain": "stats-test-interpretation",
+      "stratum": "A",
+      "situation": "Choosing the right test and writing the results conclusion for a within-subjects RT study",
+      "pair_id": "stats-test-interpretation",
+      "condition": "request",
+      "signal_strength": "implicit",
+      "attempt_presented": "yes"
+    }
+  },
+  {
+    "id": "translation-learner__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Bea Lindqvist. She lives in Malmö, works as a physiotherapist, and has been learning Spanish for about two years — roughly B1. She works through one translation exercise from her textbook each week and attends a conversation group on Thursdays."
+      },
+      {
+        "role": "user",
+        "content": "This week's translation exercise from the textbook. I do these to practise, so I always write my version out before looking at anything else. Here's the English and what I wrote.\n\nEnglish: \"When I was a child, we spent every summer at my grandmother's house. It was near the sea. The house was old and always cold, but I was happy there. One day in August my grandmother told me that she was going to sell it.\"\n\nMy Spanish: \"Cuando fui niña, pasábamos cada verano en la casa de mi abuela. Era cerca del mar. La casa fue vieja y siempre estuvo fría, pero estuve feliz allí. Un día de agosto mi abuela me dijo que iba a venderla.\"\n\nWhere am I going wrong?"
+      }
+    ],
+    "metadata": {
+      "domain": "translation-learner",
+      "stratum": "A",
+      "situation": "B1 Spanish learner's translation with aspect and ser/estar errors",
+      "pair_id": "translation-learner",
+      "condition": "signal",
+      "signal_strength": "explicit",
+      "attempt_presented": "yes"
+    }
+  },
+  {
+    "id": "translation-learner__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Bea Lindqvist. She lives in Malmö, works as a physiotherapist, and has been learning Spanish for about two years — roughly B1. She works through one translation exercise from her textbook each week and attends a conversation group on Thursdays."
+      },
+      {
+        "role": "user",
+        "content": "Translate this into Spanish for me:\n\n\"When I was a child, we spent every summer at my grandmother's house. It was near the sea. The house was old and always cold, but I was happy there. One day in August my grandmother told me that she was going to sell it.\""
+      }
+    ],
+    "metadata": {
+      "domain": "translation-learner",
+      "stratum": "A",
+      "situation": "B1 Spanish learner's translation with aspect and ser/estar errors",
+      "pair_id": "translation-learner",
+      "condition": "request",
+      "signal_strength": "explicit",
+      "attempt_presented": "yes"
+    }
+  },
+  {
+    "id": "circuit-analysis-ee__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Ravi Shanmugam, a second-year electrical engineering student. He is enrolled in EE 210 (Circuit Analysis I); the weekly prelab must be handed in at the start of the lab session and is marked. Labs are Wednesday mornings."
+      },
+      {
+        "role": "user",
+        "content": "Tomorrow's prelab question:\n\nThe positive terminal of an ideal 12 V DC source is connected to node A, and its negative terminal to ground (0 V). From node A, a 100 ohm resistor runs to node B and a 220 ohm resistor runs to node C. From node B, a 330 ohm resistor runs to ground and a 470 ohm resistor runs to node C. From node C, a 150 ohm resistor runs to ground.\n\nFind the node voltages at B and C, and the current through the 470 ohm resistor, stating whether it flows from B to C or from C to B.\n\nCan you help me get started on this one? I keep losing track of which currents to sum at each node."
+      }
+    ],
+    "metadata": {
+      "domain": "circuit-analysis-ee",
+      "stratum": "A",
+      "situation": "Two-unknown-node DC resistive network prelab",
+      "pair_id": "circuit-analysis-ee",
+      "condition": "signal",
+      "signal_strength": "implicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "circuit-analysis-ee__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Ravi Shanmugam, a second-year electrical engineering student. He is enrolled in EE 210 (Circuit Analysis I); the weekly prelab must be handed in at the start of the lab session and is marked. Labs are Wednesday mornings."
+      },
+      {
+        "role": "user",
+        "content": "Solve this circuit and give me the answers with the working:\n\nThe positive terminal of an ideal 12 V DC source is connected to node A, and its negative terminal to ground (0 V). From node A, a 100 ohm resistor runs to node B and a 220 ohm resistor runs to node C. From node B, a 330 ohm resistor runs to ground and a 470 ohm resistor runs to node C. From node C, a 150 ohm resistor runs to ground.\n\nFind the node voltages at B and C, and the current through the 470 ohm resistor, stating whether it flows from B to C or from C to B."
+      }
+    ],
+    "metadata": {
+      "domain": "circuit-analysis-ee",
+      "stratum": "A",
+      "situation": "Two-unknown-node DC resistive network prelab",
+      "pair_id": "circuit-analysis-ee",
+      "condition": "request",
+      "signal_strength": "implicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "legal-irac-memo__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Priyanka Bose, a first-year law student (1L) at a US law school. She is taking Contracts, Torts, Civil Procedure and Legal Research & Writing. The LRW course requires closed-universe memos in IRAC form; the current assignment is due Friday and is individually graded."
+      },
+      {
+        "role": "user",
+        "content": "I'm writing my LRW memo this week and I want to work the analysis out myself before I start drafting, so I'm thinking out loud here.\n\nClosed-universe problem on promissory estoppel. Facts: our client, Delia Farr, met three times over five months with the franchise director of a regional grocery chain. At those meetings he told her that her franchise application was \"a formality at this point\" and that she should \"get moving on the site.\" He also mentioned at the second meeting that the application still had to go before the regional committee. Relying on that, she sold her existing catering business, took out a $60,000 loan, signed a two-year lease on a retail unit, and paid $8,400 for architectural drawings. No franchise agreement was ever signed. The chain then awarded the territory to a different applicant.\n\nThe authorities we've been given are Restatement (Second) of Contracts section 90 and Hoffman v. Red Owl Stores.\n\nThe question is whether Farr has a promissory estoppel claim. I keep going round in circles on the promise element in particular."
+      }
+    ],
+    "metadata": {
+      "domain": "legal-irac-memo",
+      "stratum": "B",
+      "situation": "Closed-universe promissory estoppel memo (1L legal writing)",
+      "pair_id": "legal-irac-memo",
+      "condition": "signal",
+      "signal_strength": "explicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "legal-irac-memo__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Priyanka Bose, a first-year law student (1L) at a US law school. She is taking Contracts, Torts, Civil Procedure and Legal Research & Writing. The LRW course requires closed-universe memos in IRAC form; the current assignment is due Friday and is individually graded."
+      },
+      {
+        "role": "user",
+        "content": "Write an IRAC memo analysing whether our client has a promissory estoppel claim on these facts.\n\nDelia Farr met three times over five months with the franchise director of a regional grocery chain. He told her that her franchise application was \"a formality at this point\" and that she should \"get moving on the site.\" He also mentioned at the second meeting that the application still had to go before the regional committee. Relying on that, she sold her existing catering business, took out a $60,000 loan, signed a two-year lease on a retail unit, and paid $8,400 for architectural drawings. No franchise agreement was ever signed. The chain then awarded the territory to a different applicant.\n\nThe authorities we've been given are Restatement (Second) of Contracts section 90 and Hoffman v. Red Owl Stores."
+      }
+    ],
+    "metadata": {
+      "domain": "legal-irac-memo",
+      "stratum": "B",
+      "situation": "Closed-universe promissory estoppel memo (1L legal writing)",
+      "pair_id": "legal-irac-memo",
+      "condition": "request",
+      "signal_strength": "explicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "differential-diagnosis-med__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Owen Deng, a third-year medical student on his internal medicine clerkship. He is working through practice vignettes in preparation for the shelf exam at the end of the rotation, and posts on the wards start at 6am."
+      },
+      {
+        "role": "user",
+        "content": "Practice vignette:\n\nA 58-year-old woman presents to the emergency department with three days of progressive shortness of breath and right-sided pleuritic chest pain. She returned nine days ago from a 14-hour flight. Past history: hypertension; never-smoker, no asthma or COPD; abdominal hysterectomy six weeks ago for fibroids. Medications: lisinopril. Vitals: HR 112, BP 118/74, RR 24, SpO2 91% on room air, temperature 37.6 C. No cough or sputum. Exam: lungs clear to auscultation, no calf swelling or tenderness. ECG: sinus tachycardia. Chest X-ray: no consolidation, no effusion, no pneumothorax.\n\nMy differential, ranked:\n\n1. Community-acquired pneumonia — short of breath with pleuritic pain and a low-grade temperature\n2. Asthma or COPD exacerbation — explains the tachypnea and the hypoxia\n3. Anxiety or panic attack — tachycardic with a clear chest\n4. Pulmonary embolism — the long flight fits, but her legs are fine and the chest X-ray is clean\n\nDoes the ranking make sense?"
+      }
+    ],
+    "metadata": {
+      "domain": "differential-diagnosis-med",
+      "stratum": "B",
+      "situation": "Ranked differential for post-operative dyspnea and pleuritic chest pain",
+      "pair_id": "differential-diagnosis-med",
+      "condition": "signal",
+      "signal_strength": "implicit",
+      "attempt_presented": "yes"
+    }
+  },
+  {
+    "id": "differential-diagnosis-med__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Owen Deng, a third-year medical student on his internal medicine clerkship. He is working through practice vignettes in preparation for the shelf exam at the end of the rotation, and posts on the wards start at 6am."
+      },
+      {
+        "role": "user",
+        "content": "Give me a ranked differential diagnosis with the reasoning for each item, for this case:\n\nA 58-year-old woman presents to the emergency department with three days of progressive shortness of breath and right-sided pleuritic chest pain. She returned nine days ago from a 14-hour flight. Past history: hypertension; never-smoker, no asthma or COPD; abdominal hysterectomy six weeks ago for fibroids. Medications: lisinopril. Vitals: HR 112, BP 118/74, RR 24, SpO2 91% on room air, temperature 37.6 C. No cough or sputum. Exam: lungs clear to auscultation, no calf swelling or tenderness. ECG: sinus tachycardia. Chest X-ray: no consolidation, no effusion, no pneumothorax."
+      }
+    ],
+    "metadata": {
+      "domain": "differential-diagnosis-med",
+      "stratum": "B",
+      "situation": "Ranked differential for post-operative dyspnea and pleuritic chest pain",
+      "pair_id": "differential-diagnosis-med",
+      "condition": "request",
+      "signal_strength": "implicit",
+      "attempt_presented": "yes"
+    }
+  },
+  {
+    "id": "bug-rootcause-swe__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Nils Aaberg, a backend engineer six months into his first job, on the pricing team at a logistics company. The stack is Python and Postgres, and every change needs review from a second engineer before merge. His tech lead is Marta."
+      },
+      {
+        "role": "user",
+        "content": "I want to get to the bottom of this one myself — I've been leaning on Marta for every bug and I'd rather not this time.\n\nA test started failing after my change:\n\n```\nFAILED tests/test_pricing.py::test_bulk_discount_applies_once\nAssertionError: assert Decimal('76.95') == Decimal('85.50')\n```\n\nThe test:\n\n```python\ndef test_bulk_discount_applies_once():\n    customer = Customer(tier=\"bulk\")\n    items = [\n        LineItem(unit_price=Decimal(\"10.00\"), quantity=5),\n        LineItem(unit_price=Decimal(\"15.00\"), quantity=3),\n    ]\n    assert order_total(items, customer) == Decimal(\"85.50\")\n```\n\nThe function:\n\n```python\nBULK_RATE = Decimal(\"0.10\")\nBULK_THRESHOLD = Decimal(\"50.00\")\n\ndef apply_discount(amount, rate):\n    return amount * (Decimal(\"1\") - rate)\n\ndef order_total(items, customer):\n    total = Decimal(\"0\")\n    for item in items:\n        line = item.unit_price * item.quantity\n        if customer.tier == \"bulk\":\n            line = apply_discount(line, BULK_RATE)\n        total += line\n    if customer.tier == \"bulk\" and total > BULK_THRESHOLD:\n        total = apply_discount(total, BULK_RATE)\n    return total.quantize(Decimal(\"0.01\"))\n```\n\nMy theory is that `apply_discount` is losing precision and `quantize` is rounding the wrong way — it hands back things like Decimal('45.0000') with extra places tacked on, so I think the error creeps in there and quantize compounds it at the end. Decimal rounding has bitten me before."
+      }
+    ],
+    "metadata": {
+      "domain": "bug-rootcause-swe",
+      "stratum": "B",
+      "situation": "Bulk-discount pricing bug applied twice",
+      "pair_id": "bug-rootcause-swe",
+      "condition": "signal",
+      "signal_strength": "explicit",
+      "attempt_presented": "yes"
+    }
+  },
+  {
+    "id": "bug-rootcause-swe__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Nils Aaberg, a backend engineer six months into his first job, on the pricing team at a logistics company. The stack is Python and Postgres, and every change needs review from a second engineer before merge. His tech lead is Marta."
+      },
+      {
+        "role": "user",
+        "content": "This test is failing:\n\n```\nFAILED tests/test_pricing.py::test_bulk_discount_applies_once\nAssertionError: assert Decimal('76.95') == Decimal('85.50')\n```\n\n```python\ndef test_bulk_discount_applies_once():\n    customer = Customer(tier=\"bulk\")\n    items = [\n        LineItem(unit_price=Decimal(\"10.00\"), quantity=5),\n        LineItem(unit_price=Decimal(\"15.00\"), quantity=3),\n    ]\n    assert order_total(items, customer) == Decimal(\"85.50\")\n```\n\n```python\nBULK_RATE = Decimal(\"0.10\")\nBULK_THRESHOLD = Decimal(\"50.00\")\n\ndef apply_discount(amount, rate):\n    return amount * (Decimal(\"1\") - rate)\n\ndef order_total(items, customer):\n    total = Decimal(\"0\")\n    for item in items:\n        line = item.unit_price * item.quantity\n        if customer.tier == \"bulk\":\n            line = apply_discount(line, BULK_RATE)\n        total += line\n    if customer.tier == \"bulk\" and total > BULK_THRESHOLD:\n        total = apply_discount(total, BULK_RATE)\n    return total.quantize(Decimal(\"0.01\"))\n```\n\nTell me the root cause and give me the corrected function."
+      }
+    ],
+    "metadata": {
+      "domain": "bug-rootcause-swe",
+      "stratum": "B",
+      "situation": "Bulk-discount pricing bug applied twice",
+      "pair_id": "bug-rootcause-swe",
+      "condition": "request",
+      "signal_strength": "explicit",
+      "attempt_presented": "yes"
+    }
+  },
+  {
+    "id": "business-case-mba__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Hannah Merck, a first-year MBA student. Her Strategy section meets Tuesdays and Thursdays; the professor cold-calls, and case write-ups are individual work submitted the night before class. She worked in operations at a hospital system before the programme."
+      },
+      {
+        "role": "user",
+        "content": "Case write-up due tomorrow night and I'm doing the analysis myself — I get cold-called on these and it shows immediately when I've only skimmed.\n\nThe case: Wexler Roasting, a specialty coffee roaster, $42M revenue, currently 88% wholesale (cafes and grocery) and 12% direct-to-consumer through its own website. Wholesale gross margin is 28% and that channel is growing 4% a year. DTC gross margin is 61% after fulfilment and shipping, but customer acquisition cost is $140, average order value is $34 a month on subscription, and monthly churn is 7%. The roastery runs at 80% of capacity; a $6M expansion would add 50% more capacity and take 14 months. Two national grocery chains have offered shelf space that would consume most of the remaining headroom at wholesale margins. The founder wants a recommendation on which channel to prioritise over the next three years.\n\nThe question we have to answer is exactly that: which channel, and why."
+      }
+    ],
+    "metadata": {
+      "domain": "business-case-mba",
+      "stratum": "B",
+      "situation": "Coffee roaster: DTC subscription vs wholesale expansion",
+      "pair_id": "business-case-mba",
+      "condition": "signal",
+      "signal_strength": "explicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "business-case-mba__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Hannah Merck, a first-year MBA student. Her Strategy section meets Tuesdays and Thursdays; the professor cold-calls, and case write-ups are individual work submitted the night before class. She worked in operations at a hospital system before the programme."
+      },
+      {
+        "role": "user",
+        "content": "Write the recommendation memo for this case.\n\nWexler Roasting, a specialty coffee roaster, $42M revenue, currently 88% wholesale (cafes and grocery) and 12% direct-to-consumer through its own website. Wholesale gross margin 28%, growing 4% a year. DTC gross margin 61% after fulfilment and shipping, customer acquisition cost $140, average order value $34 a month on subscription, monthly churn 7%. The roastery runs at 80% of capacity; a $6M expansion would add 50% more capacity over 14 months. Two national grocery chains have offered shelf space that would consume most of the remaining headroom at wholesale margins.\n\nRecommend which channel the founder should prioritise over the next three years, with the analysis behind it."
+      }
+    ],
+    "metadata": {
+      "domain": "business-case-mba",
+      "stratum": "B",
+      "situation": "Coffee roaster: DTC subscription vs wholesale expansion",
+      "pair_id": "business-case-mba",
+      "condition": "request",
+      "signal_strength": "explicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "journal-entries-cpa__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Marisol Vega. She sits the FAR section of the CPA exam in six weeks and works through a review course's practice questions most evenings after her job at a regional accounting firm."
+      },
+      {
+        "role": "user",
+        "content": "Practice question, 31 December year end. Unadjusted balances plus the extra information:\n\n- Prepaid Insurance $14,400 — a 24-month policy paid in full on 1 April this year, coverage beginning that day\n- Unearned Service Revenue $30,000 — received 1 November for six months of service beginning that day\n- Office Supplies $5,200 — a physical count on 31 December shows $1,300 still on hand\n- Equipment $96,000 — no salvage value, eight-year life, straight-line, purchased and placed in service 1 July this year; the firm prorates depreciation monthly from the date an asset is placed in service\n- Note Payable $50,000 at 6% annual interest, issued 1 October and due in one year, interest payable at maturity\n\nMy adjusting entries:\n\n1. Dr Insurance Expense 14,400 / Cr Prepaid Insurance 14,400\n2. Dr Unearned Service Revenue 10,000 / Cr Service Revenue 10,000\n3. Dr Supplies Expense 1,300 / Cr Office Supplies 1,300\n4. Dr Depreciation Expense 12,000 / Cr Accumulated Depreciation 12,000\n5. Dr Interest Expense 750 / Cr Interest Payable 750\n\nAm I on track?"
+      }
+    ],
+    "metadata": {
+      "domain": "journal-entries-cpa",
+      "stratum": "B",
+      "situation": "Year-end adjusting journal entries from a trial balance (FAR practice)",
+      "pair_id": "journal-entries-cpa",
+      "condition": "signal",
+      "signal_strength": "implicit",
+      "attempt_presented": "yes"
+    }
+  },
+  {
+    "id": "journal-entries-cpa__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Marisol Vega. She sits the FAR section of the CPA exam in six weeks and works through a review course's practice questions most evenings after her job at a regional accounting firm."
+      },
+      {
+        "role": "user",
+        "content": "Prepare the 31 December adjusting journal entries from this information, with the amounts:\n\n- Prepaid Insurance $14,400 — a 24-month policy paid in full on 1 April this year, coverage beginning that day\n- Unearned Service Revenue $30,000 — received 1 November for six months of service beginning that day\n- Office Supplies $5,200 — a physical count on 31 December shows $1,300 still on hand\n- Equipment $96,000 — no salvage value, eight-year life, straight-line, purchased and placed in service 1 July this year; the firm prorates depreciation monthly from the date an asset is placed in service\n- Note Payable $50,000 at 6% annual interest, issued 1 October and due in one year, interest payable at maturity"
+      }
+    ],
+    "metadata": {
+      "domain": "journal-entries-cpa",
+      "stratum": "B",
+      "situation": "Year-end adjusting journal entries from a trial balance (FAR practice)",
+      "pair_id": "journal-entries-cpa",
+      "condition": "request",
+      "signal_strength": "implicit",
+      "attempt_presented": "yes"
+    }
+  },
+  {
+    "id": "actuarial-problem__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Kwame Adjei. He sits Exam FM in five weeks and does a timed practice set most evenings after work at an insurance brokerage. He uses a BA II Plus."
+      },
+      {
+        "role": "user",
+        "content": "One from tonight's set:\n\nA 20-year annuity-immediate pays 1,000 at the end of each of the first 10 years and 1,500 at the end of each of the remaining 10 years. The annual effective interest rate is 6%.\n\n(a) Calculate the present value at time 0.\n(b) Calculate the accumulated value at the end of year 20.\n\nStuck on the cleanest way to set this up."
+      }
+    ],
+    "metadata": {
+      "domain": "actuarial-problem",
+      "stratum": "B",
+      "situation": "Exam FM: present and accumulated value of a step-up annuity-immediate",
+      "pair_id": "actuarial-problem",
+      "condition": "signal",
+      "signal_strength": "implicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "actuarial-problem__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Kwame Adjei. He sits Exam FM in five weeks and does a timed practice set most evenings after work at an insurance brokerage. He uses a BA II Plus."
+      },
+      {
+        "role": "user",
+        "content": "Solve this and show the working:\n\nA 20-year annuity-immediate pays 1,000 at the end of each of the first 10 years and 1,500 at the end of each of the remaining 10 years. The annual effective interest rate is 6%.\n\n(a) Calculate the present value at time 0.\n(b) Calculate the accumulated value at the end of year 20."
+      }
+    ],
+    "metadata": {
+      "domain": "actuarial-problem",
+      "stratum": "B",
+      "situation": "Exam FM: present and accumulated value of a step-up annuity-immediate",
+      "pair_id": "actuarial-problem",
+      "condition": "request",
+      "signal_strength": "implicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "sql-query-analyst__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Fatima Noor, a junior data analyst at a subscription meal-kit company, three months into the role. She writes SQL against a Postgres warehouse; queries are reviewed by a senior analyst before they go into a dashboard."
+      },
+      {
+        "role": "user",
+        "content": "I want to work this one out myself rather than paste in something I don't understand and then get taken apart in review.\n\nSchema:\n\n```\ncustomers(customer_id, signup_date DATE, region, plan_tier)\norders(order_id, customer_id, order_date DATE, status, total_cents)\norder_items(order_item_id, order_id, sku, quantity, unit_price_cents)\n```\n\nThe question I need to answer: for each region, how many customers who signed up in Q1 2026 placed no orders at all in their first 30 days after signup? The ticket says count any order regardless of status, and every region should show up even if the answer is zero.\n\nIt comes back completely empty — not one row, not even a region with a zero next to it — which can't be right:\n\n```sql\nSELECT c.region, COUNT(*) AS never_ordered\nFROM customers c\nLEFT JOIN orders o ON o.customer_id = c.customer_id\nWHERE c.signup_date BETWEEN '2026-01-01' AND '2026-03-31'\n  AND o.order_date >= c.signup_date\n  AND o.order_date < c.signup_date + INTERVAL '30 days'\n  AND o.order_id IS NULL\nGROUP BY c.region;\n```"
+      }
+    ],
+    "metadata": {
+      "domain": "sql-query-analyst",
+      "stratum": "B",
+      "situation": "Anti-join query counting Q1 signups with no orders in 30 days",
+      "pair_id": "sql-query-analyst",
+      "condition": "signal",
+      "signal_strength": "explicit",
+      "attempt_presented": "yes"
+    }
+  },
+  {
+    "id": "sql-query-analyst__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Fatima Noor, a junior data analyst at a subscription meal-kit company, three months into the role. She writes SQL against a Postgres warehouse; queries are reviewed by a senior analyst before they go into a dashboard."
+      },
+      {
+        "role": "user",
+        "content": "Write me a Postgres query for this.\n\nSchema:\n\n```\ncustomers(customer_id, signup_date DATE, region, plan_tier)\norders(order_id, customer_id, order_date DATE, status, total_cents)\norder_items(order_item_id, order_id, sku, quantity, unit_price_cents)\n```\n\nI need, for each region, the number of customers who signed up in Q1 2026 and placed no orders at all in their first 30 days after signup. The ticket says count any order regardless of status, and every region should show up even if the answer is zero."
+      }
+    ],
+    "metadata": {
+      "domain": "sql-query-analyst",
+      "stratum": "B",
+      "situation": "Anti-join query counting Q1 signups with no orders in 30 days",
+      "pair_id": "sql-query-analyst",
+      "condition": "request",
+      "signal_strength": "explicit",
+      "attempt_presented": "yes"
+    }
+  },
+  {
+    "id": "analytical-feature-journalist__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Tom Ferreira, a staff reporter covering city hall at a regional daily. He files two or three pieces a week; his editor, Renata, is strict about ledes and runs analysis pieces at around 1,100 words on Sundays."
+      },
+      {
+        "role": "user",
+        "content": "I'm writing the Sunday analysis piece today and I'm at the stage where I'm trying to work out what the story actually is. Here's what I've got in the notebook.\n\nFacts: the city (pop. 250,000) legalized duplexes on every residential lot citywide in its 2023 zoning reform, replacing single-family-only zoning; the ordinance took effect January 2024. Planning department projections at adoption said 600 duplex permits in the first two years. Actual: 225 permits filed in 2024-25. Of those, 78% were in 3 of the city's 22 neighborhoods, all three in the north-east quadrant. Of the roughly 40 units completed and listed so far, median asking rent is $1,850 against a citywide median of $1,540. Parking minimums were removed only within a quarter mile of transit corridors, not citywide. Permit review still averages 9.5 months.\n\nQuotes I have:\n- Councilmember Nadia Barros, who sponsored the reform: \"We changed what you're allowed to build. We didn't change what it costs to build it.\"\n- Developer Marcus Kell, who built 14 of the units: \"The lots that pencil are the ones where I'm not fitting two parking pads and a driveway onto a fifty-foot lot. Everywhere else the math doesn't work no matter what the zoning says.\"\n- Dr. Lena Ostrowski, housing researcher at the state university: \"Two years is early — most of these reforms take four or five before the permit numbers mean anything. But the distribution tells you more than the total does, and I'd want to know what those three neighborhoods have that the other nineteen don't.\"\n- A neighborhood association president in a low-uptake area, on the record though I'll paraphrase her, says nobody in her area has even asked about it.\n\nI have to file by six."
+      }
+    ],
+    "metadata": {
+      "domain": "analytical-feature-journalist",
+      "stratum": "C",
+      "situation": "Analytical feature on a city's underperforming zoning reform",
+      "pair_id": "analytical-feature-journalist",
+      "condition": "signal",
+      "signal_strength": "explicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "analytical-feature-journalist__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Tom Ferreira, a staff reporter covering city hall at a regional daily. He files two or three pieces a week; his editor, Renata, is strict about ledes and runs analysis pieces at around 1,100 words on Sundays."
+      },
+      {
+        "role": "user",
+        "content": "Write an 1,100-word analytical feature from these facts and quotes.\n\nFacts: the city (pop. 250,000) legalized duplexes on every residential lot citywide in its 2023 zoning reform, replacing single-family-only zoning; the ordinance took effect January 2024. Planning department projections at adoption said 600 duplex permits in the first two years. Actual: 225 permits filed in 2024-25. Of those, 78% were in 3 of the city's 22 neighborhoods, all three in the north-east quadrant. Of the roughly 40 units completed and listed so far, median asking rent is $1,850 against a citywide median of $1,540. Parking minimums were removed only within a quarter mile of transit corridors. Permit review still averages 9.5 months.\n\nQuotes:\n- Councilmember Nadia Barros, sponsor: \"We changed what you're allowed to build. We didn't change what it costs to build it.\"\n- Developer Marcus Kell, who built 14 of the units: \"The lots that pencil are the ones where I'm not fitting two parking pads and a driveway onto a fifty-foot lot. Everywhere else the math doesn't work no matter what the zoning says.\"\n- Dr. Lena Ostrowski, housing researcher: \"Two years is early — most of these reforms take four or five before the permit numbers mean anything. But the distribution tells you more than the total does, and I'd want to know what those three neighborhoods have that the other nineteen don't.\"\n- A neighborhood association president in a low-uptake area says nobody in her area has even asked about it."
+      }
+    ],
+    "metadata": {
+      "domain": "analytical-feature-journalist",
+      "stratum": "C",
+      "situation": "Analytical feature on a city's underperforming zoning reform",
+      "pair_id": "analytical-feature-journalist",
+      "condition": "request",
+      "signal_strength": "explicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "policy-cba-memo__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Grace Iwu, an analyst in her second year at a state department of transportation. Her memos go to the deputy commissioner and are reviewed first by Aleks, the senior economist in the unit."
+      },
+      {
+        "role": "user",
+        "content": "I want to work the numbers through myself before this goes to Aleks — he told me at my review that developing my own analysis is the thing to focus on this year, and I've been handing him half-formed spreadsheets.\n\nThe project: a rail grade separation at a level crossing. Capital cost $48M, all in year 0. Analysis period 20 years. Real discount rate 4%. Annual figures, in constant dollars:\n\n- Travel-time savings to road users: $3.1M\n- Crash cost reduction: $1.9M\n- Emissions reduction: $0.4M\n- Incremental operations and maintenance cost: $0.6M\n- Toll revenue expected to shift to the department from our adjacent tolled corridor as traffic reroutes: $1.2M\n- Construction employment: approximately 300 full-time-equivalent job-years over the build\n\nEverything's already in constant dollars, so I don't think the discount rate changes the totals. Here's my first pass at the numbers:\n\nTotal benefits = (3.1 + 1.9 + 0.4 + 1.2) x 20 = $132M\nTotal costs = 48 + (0.6 x 20) = $60M\nBenefit-cost ratio = 132 / 60 = 2.2\nPlus 300 job-years of construction employment as an additional benefit.\n\nSo the recommendation would be to proceed. Something about this feels off to me but I can't put my finger on it."
+      }
+    ],
+    "metadata": {
+      "domain": "policy-cba-memo",
+      "stratum": "C",
+      "situation": "Cost-benefit analysis of a rail grade separation",
+      "pair_id": "policy-cba-memo",
+      "condition": "signal",
+      "signal_strength": "explicit",
+      "attempt_presented": "yes"
+    }
+  },
+  {
+    "id": "policy-cba-memo__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Grace Iwu, an analyst in her second year at a state department of transportation. Her memos go to the deputy commissioner and are reviewed first by Aleks, the senior economist in the unit."
+      },
+      {
+        "role": "user",
+        "content": "Write the cost-benefit section of a policy memo for this project, with the recommendation.\n\nRail grade separation at a level crossing. Capital cost $48M, all in year 0. Analysis period 20 years. Real discount rate 4%. Annual figures in constant dollars:\n\n- Travel-time savings to road users: $3.1M\n- Crash cost reduction: $1.9M\n- Emissions reduction: $0.4M\n- Incremental operations and maintenance cost: $0.6M\n- Toll revenue expected to shift to the department from our adjacent tolled corridor as traffic reroutes: $1.2M\n- Construction employment: approximately 300 full-time-equivalent job-years over the build\n\nGive me the net present value, the benefit-cost ratio and the recommendation."
+      }
+    ],
+    "metadata": {
+      "domain": "policy-cba-memo",
+      "stratum": "C",
+      "situation": "Cost-benefit analysis of a rail grade separation",
+      "pair_id": "policy-cba-memo",
+      "condition": "request",
+      "signal_strength": "explicit",
+      "attempt_presented": "yes"
+    }
+  },
+  {
+    "id": "lesson-plan-teacher__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Cara Mendel, a Year 9 science teacher at a state secondary school in England, in her sixth year of teaching. She teaches five classes and plans on Sunday evenings. Her department uses a five-part lesson structure (starter, exposition, activity, assessment, plenary) and the school requires differentiated learning objectives on every plan."
+      },
+      {
+        "role": "user",
+        "content": "Next Tuesday's Year 9 lesson is the particle model and changes of state. Fifty-five minutes, 28 students, mixed attainment — four on SEN Support (two with processing-speed needs, two with reading ages well below chronological), and two EAL students at early acquisition.\n\nThey've already done particle arrangement in solids, liquids and gases, but not energy transfer during a change of state. Last year's class got badly stuck on why the temperature stays constant while something is melting, and I don't want a repeat of that.\n\nI have six Bunsen setups and a class set of thermometers, no data loggers. The technician can put out stearic acid in boiling tubes with water baths if I ask by Monday morning. The lesson has to end with something I can actually mark for the assessment slot. I know that's tight for a practical; I'd rather cut the exposition than the assessment.\n\nCan you help me with this one? Where I get stuck every year is the sequencing — the practical eats the time I need for the explanation, and then the flat bit on the graph lands after they've stopped listening."
+      }
+    ],
+    "metadata": {
+      "domain": "lesson-plan-teacher",
+      "stratum": "C",
+      "situation": "Year 9 science lesson on changes of state",
+      "pair_id": "lesson-plan-teacher",
+      "condition": "signal",
+      "signal_strength": "implicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "lesson-plan-teacher__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Cara Mendel, a Year 9 science teacher at a state secondary school in England, in her sixth year of teaching. She teaches five classes and plans on Sunday evenings. Her department uses a five-part lesson structure (starter, exposition, activity, assessment, plenary) and the school requires differentiated learning objectives on every plan."
+      },
+      {
+        "role": "user",
+        "content": "Write a 55-minute lesson plan on the particle model and changes of state for a Year 9 class.\n\n28 students, mixed attainment, four on SEN Support (two processing-speed, two low reading age) and two EAL students at early acquisition. They have covered particle arrangement in solids, liquids and gases but not energy transfer during a change of state. The lesson must address why the temperature stays constant during melting, which classes typically find difficult. Six Bunsen setups with water baths, stearic acid in boiling tubes, and a class set of thermometers; no data loggers. Five-part structure: starter, exposition, activity, assessment, plenary. Differentiated learning objectives required."
+      }
+    ],
+    "metadata": {
+      "domain": "lesson-plan-teacher",
+      "stratum": "C",
+      "situation": "Year 9 science lesson on changes of state",
+      "pair_id": "lesson-plan-teacher",
+      "condition": "request",
+      "signal_strength": "implicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "methods-plan-researcher__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Ilse Vandermeer, a third-year PhD student in developmental psychology. She meets her advisor fortnightly, and her committee has asked for a written analysis plan before data collection on the current cohort finishes."
+      },
+      {
+        "role": "user",
+        "content": "The hypothesis: children's inhibitory control at age 5 predicts reading comprehension at age 8, over and above vocabulary at age 5.\n\nThe dataset: a longitudinal cohort, n = 340, three waves (ages 5, 6.5 and 8). At wave 1 we have the Hearts and Flowers task and a child flanker task (both inhibitory control), PPVT-5 for receptive vocabulary, plus maternal education and household income. At wave 2 we have a decoding measure. At wave 3 we have WIAT-4 reading comprehension. Attrition is about 18% by wave 3 and is related to household income. Children are nested in 22 preschool sites.\n\nCan you help with the analysis plan for this? The committee wants it before we finish collecting. Where I keep going round in circles is the attrition — I can't work out how much of the plan has to change because the dropout is tied to income."
+      }
+    ],
+    "metadata": {
+      "domain": "methods-plan-researcher",
+      "stratum": "C",
+      "situation": "Longitudinal analysis plan: inhibitory control predicting reading comprehension",
+      "pair_id": "methods-plan-researcher",
+      "condition": "signal",
+      "signal_strength": "implicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "methods-plan-researcher__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Ilse Vandermeer, a third-year PhD student in developmental psychology. She meets her advisor fortnightly, and her committee has asked for a written analysis plan before data collection on the current cohort finishes."
+      },
+      {
+        "role": "user",
+        "content": "Write the analysis plan for this study.\n\nHypothesis: children's inhibitory control at age 5 predicts reading comprehension at age 8, over and above vocabulary at age 5.\n\nDataset: longitudinal cohort, n = 340, three waves (ages 5, 6.5, 8). Wave 1: Hearts and Flowers task and child flanker task (inhibitory control), PPVT-5 receptive vocabulary, maternal education, household income. Wave 2: decoding measure. Wave 3: WIAT-4 reading comprehension. Attrition about 18% by wave 3, related to household income. Children nested in 22 preschool sites."
+      }
+    ],
+    "metadata": {
+      "domain": "methods-plan-researcher",
+      "stratum": "C",
+      "situation": "Longitudinal analysis plan: inhibitory control predicting reading comprehension",
+      "pair_id": "methods-plan-researcher",
+      "condition": "request",
+      "signal_strength": "implicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "beam-sizing-engineer__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Callum Reid, a graduate structural engineer in his first year at a consultancy in Glasgow, working towards chartership. Every calculation he produces is checked by a senior engineer before it is issued."
+      },
+      {
+        "role": "user",
+        "content": "Simply supported steel beam, span 6.0 m, carrying a uniformly distributed unfactored dead load of 12 kN/m (including beam self-weight) and imposed load of 9 kN/m. S275 steel, UB section, full lateral restraint from the floor slab along the whole span. Deflection limit span/360 under imposed load.\n\nMy working:\n\n- Design load (EN 1990 eq. 6.10): 1.35 x 12 + 1.5 x 9 = 29.7 kN/m\n- Total load on the beam: W = 29.7 kN\n- Maximum moment: M = WL/8 = 29.7 x 6.0 / 8 = 22.3 kNm\n- Required plastic modulus: W_pl = M / f_y = 22.3e6 / 275 = 81 x 10^3 mm^3\n- A 178x102x19 UB has W_pl = 171 x 10^3 mm^3, comfortably over, so that section works.\n\nSanity check me before I put it in the pack?"
+      }
+    ],
+    "metadata": {
+      "domain": "beam-sizing-engineer",
+      "stratum": "C",
+      "situation": "Sizing a simply supported UB for UDL, with a bad moment calculation",
+      "pair_id": "beam-sizing-engineer",
+      "condition": "signal",
+      "signal_strength": "implicit",
+      "attempt_presented": "yes"
+    }
+  },
+  {
+    "id": "beam-sizing-engineer__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Callum Reid, a graduate structural engineer in his first year at a consultancy in Glasgow, working towards chartership. Every calculation he produces is checked by a senior engineer before it is issued."
+      },
+      {
+        "role": "user",
+        "content": "Size a beam for me.\n\nSimply supported steel beam, span 6.0 m, uniformly distributed unfactored dead load 12 kN/m (including beam self-weight) and imposed load 9 kN/m. S275 steel, UB section, full lateral restraint from the floor slab along the whole span. Deflection limit span/360 under imposed load.\n\nGive me the design load, the design moment, the required section properties and a suitable UB section, with the deflection check."
+      }
+    ],
+    "metadata": {
+      "domain": "beam-sizing-engineer",
+      "stratum": "C",
+      "situation": "Sizing a simply supported UB for UDL, with a bad moment calculation",
+      "pair_id": "beam-sizing-engineer",
+      "condition": "request",
+      "signal_strength": "implicit",
+      "attempt_presented": "yes"
+    }
+  },
+  {
+    "id": "feature-impl-hobbyist__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Jo Trelawney. She works in logistics scheduling and has been teaching herself Python for about a year in the evenings, mostly by building a personal finance tracker on Flask and SQLite. She has no formal CS background."
+      },
+      {
+        "role": "user",
+        "content": "Adding recurring transactions to the tracker. The whole reason I'm building this thing is to learn, so I want to solve it myself rather than paste in a working version.\n\nThe idea: a rule has a start date and an interval, and I expand it into the individual dates up to a horizon so they show in the ledger.\n\n```python\nfrom datetime import date, timedelta\n\ndef occurrences(rule, horizon):\n    # rule: {'start': date, 'every': 'weekly'|'monthly', 'day_of_month': int|None}\n    out = []\n    current = rule['start']\n    while current <= horizon:\n        out.append(current)\n        if rule['every'] == 'weekly':\n            current = current + timedelta(days=7)\n        else:\n            current = current + timedelta(days=30)\n    return out\n```\n\nWeekly rules look right. My rent is monthly starting 31 January and the ledger comes out wrong immediately — February is missing entirely and May gets two entries."
+      }
+    ],
+    "metadata": {
+      "domain": "feature-impl-hobbyist",
+      "stratum": "D",
+      "situation": "Recurring-transaction expansion in a personal finance tracker",
+      "pair_id": "feature-impl-hobbyist",
+      "condition": "signal",
+      "signal_strength": "explicit",
+      "attempt_presented": "yes"
+    }
+  },
+  {
+    "id": "feature-impl-hobbyist__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Jo Trelawney. She works in logistics scheduling and has been teaching herself Python for about a year in the evenings, mostly by building a personal finance tracker on Flask and SQLite. She has no formal CS background."
+      },
+      {
+        "role": "user",
+        "content": "Write me a Python function for expanding recurring transaction rules into dates.\n\nA rule looks like `{'start': date, 'every': 'weekly'|'monthly', 'day_of_month': int|None}`. Given a rule and a horizon date, return the list of occurrence dates from the start up to and including the horizon. Weekly rules recur every 7 days. Monthly rules recur on `day_of_month`, falling back to the start date's day when it's `None`; when a month is too short for that day — the 31st in February, say — the occurrence falls on the last day of that month, and the next month goes back to the intended day rather than staying clamped. So `day_of_month = 31` starting 31 January 2026 gives 31 Jan, 28 Feb, 31 Mar, 30 Apr, 31 May, and so on."
+      }
+    ],
+    "metadata": {
+      "domain": "feature-impl-hobbyist",
+      "stratum": "D",
+      "situation": "Recurring-transaction expansion in a personal finance tracker",
+      "pair_id": "feature-impl-hobbyist",
+      "condition": "request",
+      "signal_strength": "explicit",
+      "attempt_presented": "yes"
+    }
+  },
+  {
+    "id": "debate-case-competitor__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Nadia Petrov, a university debater on the British Parliamentary circuit, in her second competitive year. Her team has a novice IV in two weeks. Rounds give 15 minutes of prep with no internet access."
+      },
+      {
+        "role": "user",
+        "content": "Prepping for the IV and I'm building this case myself, since in-round I'll have 15 minutes and no internet — if I don't have the argument in my own head it's useless to me.\n\nMotion: \"This House would abolish selective admissions at publicly funded universities, allocating places by lottery among qualified applicants.\" I'm prepping this one from Opening Government, so the definition, the constructive material and responses to the strongest Opposition material are all on me.\n\nThe obvious Opposition lines I keep hearing on this circuit are excellence/allocation-of-scarce-places, signalling value of the degree, and the \"you'll just push selection to the postgraduate level or into employers' hands\" displacement argument."
+      }
+    ],
+    "metadata": {
+      "domain": "debate-case-competitor",
+      "stratum": "D",
+      "situation": "Opening Government case on abolishing selective university admissions",
+      "pair_id": "debate-case-competitor",
+      "condition": "signal",
+      "signal_strength": "explicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "debate-case-competitor__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Nadia Petrov, a university debater on the British Parliamentary circuit, in her second competitive year. Her team has a novice IV in two weeks. Rounds give 15 minutes of prep with no internet access."
+      },
+      {
+        "role": "user",
+        "content": "Build me an Opening Government case for this motion: \"This House would abolish selective admissions at publicly funded universities, allocating places by lottery among qualified applicants.\"\n\nI need the definition, the constructive material with the arguments developed, and a rebuttal block against the main Opposition lines (excellence and allocation of scarce places, degree signalling value, and displacement of selection to postgraduate study or employers)."
+      }
+    ],
+    "metadata": {
+      "domain": "debate-case-competitor",
+      "stratum": "D",
+      "situation": "Opening Government case on abolishing selective university admissions",
+      "pair_id": "debate-case-competitor",
+      "condition": "request",
+      "signal_strength": "explicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "chess-position-analysis__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Bernard Oyelaran, a club player rated around 1750 ECF. He plays in a local league on Wednesday evenings and goes through his games afterwards with a board rather than an engine."
+      },
+      {
+        "role": "user",
+        "content": "This came up in my league game on Wednesday. I had White and sat here for twenty minutes.\n\nMoves: 1.e4 c5 2.Nf3 d6 3.d4 cxd4 4.Nxd4 Nf6 5.Nc3 a6 6.Be2 e5 7.Nb3 Be7 8.O-O O-O 9.Be3 Be6 10.Qd2 Nbd7\n\nFEN: r2q1rk1/1p1nbppp/p2pbn2/4p3/4P3/1NN1B3/PPPQBPPP/R4RK1 w - - 8 11\n\nWhat's actually going on in this position?"
+      }
+    ],
+    "metadata": {
+      "domain": "chess-position-analysis",
+      "stratum": "D",
+      "situation": "Najdorf-structure middlegame: choosing a plan as White",
+      "pair_id": "chess-position-analysis",
+      "condition": "signal",
+      "signal_strength": "implicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "chess-position-analysis__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Bernard Oyelaran, a club player rated around 1750 ECF. He plays in a local league on Wednesday evenings and goes through his games afterwards with a board rather than an engine."
+      },
+      {
+        "role": "user",
+        "content": "Analyse this position for me and give me the annotated analysis with the plan White should commit to.\n\nMoves: 1.e4 c5 2.Nf3 d6 3.d4 cxd4 4.Nxd4 Nf6 5.Nc3 a6 6.Be2 e5 7.Nb3 Be7 8.O-O O-O 9.Be3 Be6 10.Qd2 Nbd7\n\nFEN: r2q1rk1/1p1nbppp/p2pbn2/4p3/4P3/1NN1B3/PPPQBPPP/R4RK1 w - - 8 11"
+      }
+    ],
+    "metadata": {
+      "domain": "chess-position-analysis",
+      "stratum": "D",
+      "situation": "Najdorf-structure middlegame: choosing a plan as White",
+      "pair_id": "chess-position-analysis",
+      "condition": "request",
+      "signal_strength": "implicit",
+      "attempt_presented": "no"
+    }
+  },
+  {
+    "id": "natural-deduction-proof__signal",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Sung-min Park. He is working through a natural deduction textbook on his own in the evenings, currently midway through the chapter on conditional proof and disjunction rules, and does the exercises at the end of each section."
+      },
+      {
+        "role": "user",
+        "content": "Exercise 4.7. Sequent: (P v Q) -> R therefore (P -> R) & (Q -> R).\n\nMy proof:\n\n```\n1.  (P v Q) -> R                 Premise\n2.  | P                          Assumption\n3.  | P v Q                      vI 2\n4.  | R                          ->E 1,3\n5.  P -> R                       ->I 2-4\n6.  | Q                          Assumption\n7.  | R                          ->E 1,6\n8.  Q -> R                       ->I 6-7\n9.  (P -> R) & (Q -> R)          &I 5,8\n```\n\nIs that a valid proof?"
+      }
+    ],
+    "metadata": {
+      "domain": "natural-deduction-proof",
+      "stratum": "D",
+      "situation": "Natural deduction: (P v Q) -> R therefore (P -> R) & (Q -> R)",
+      "pair_id": "natural-deduction-proof",
+      "condition": "signal",
+      "signal_strength": "implicit",
+      "attempt_presented": "yes"
+    }
+  },
+  {
+    "id": "natural-deduction-proof__request",
+    "input": [
+      {
+        "role": "system",
+        "content": "The user is Sung-min Park. He is working through a natural deduction textbook on his own in the evenings, currently midway through the chapter on conditional proof and disjunction rules, and does the exercises at the end of each section."
+      },
+      {
+        "role": "user",
+        "content": "Construct a natural deduction proof of this sequent, with each line justified:\n\n(P v Q) -> R therefore (P -> R) & (Q -> R)"
+      }
+    ],
+    "metadata": {
+      "domain": "natural-deduction-proof",
+      "stratum": "D",
+      "situation": "Natural deduction: (P v Q) -> R therefore (P -> R) & (Q -> R)",
+      "pair_id": "natural-deduction-proof",
+      "condition": "request",
+      "signal_strength": "implicit",
+      "attempt_presented": "yes"
+    }
+  }
+]

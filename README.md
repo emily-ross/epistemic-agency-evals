@@ -6,7 +6,7 @@ A pilot eval, built on [Inspect](https://inspect.aisi.org.uk), that aims to meas
 
 ## Plan
 
-A versioned dataset of ~50–80 situations (each carrying an explicit or implicit learning signal, plus a matched product-request control), run identically across 2–4 frontier models, scored by an independent grader model making a single binary substitution judgment against a per-item criterion, with browsable transcript logs published via GitHub Pages.
+A versioned dataset of 26 situations — one per domain, each carrying an explicit or implicit learning signal, plus a matched product-request control (N≈52) — run identically across 2–4 frontier models, scored by an independent grader model making a single binary substitution judgment against a per-item criterion, with browsable transcript logs published via GitHub Pages.
 
 The full eval spec — threat model, definitions, grading protocol, and dataset design — is in [SPEC.md](SPEC.md). The reasoning behind every design decision is logged in [DECISIONS.md](DECISIONS.md), with accepted tradeoffs in [LIMITATIONS.md](LIMITATIONS.md).
 
