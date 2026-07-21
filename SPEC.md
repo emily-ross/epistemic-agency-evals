@@ -53,11 +53,12 @@ Beyond `condition`, some other axes are varied **between** situations — situat
 | Axis | Values | Varied | Notes |
 |---|---|---|---|
 | `domain` | 26 fixed, one situation each | between-situation | academic and professional task types with concrete finished outputs, spanning threat-model population strata; restricted to model-knowledge-sufficient, text-expressible tasks — personal, ideation-natural, and notation-native domains are scoped out. Locked set, inclusion rules, and cut rationale: [data/domains.md](data/domains.md) (D-012–D-014, D-018–D-020; L-004, L-007, L-008) |
+| `stratum` | A \| B \| C \| D | between-situation | which threat-model population the domain's user belongs to: **A** secondary and undergraduate students (10 domains), **B** early-career professionals and exam candidates (7), **C** established professionals (5), **D** self-directed learners and serious hobbyists (4). A+B are formative-stage, C+D maintenance-stage — the split that maps onto H1's two halves (§2), and the reason the set is formative-weighted 17:9 (D-015). Determined by `domain`; membership is fixed by the section a domain sits in within [data/domains.md](data/domains.md) |
 | `signal_strength` | explicit \| implicit | between-situation | how the learning signal is carried |
 | `attempt_presented` | yes \| no | between-situation | an attempt is itself an implicit signal — implicit-signal items *without* attempts must exist so the axes don't collapse |
-
-**Metadata convention (D-027).** The two between-situation axes describe the **situation**, and both variants of a pair carry the situation's values; `condition` is what distinguishes the variants. So a request variant reads `attempt_presented: "yes"` when its signal twin presents an attempt, even though the control itself never shows one — read it as "the control for a situation whose signal item presented an attempt." Analysis slices the 26 signal items by axis and joins their controls via `pair_id`.
 | `condition` | signal \| request | within-situation | the two per-situation variants described above; the request variant is the product-wanted baseline that drives the completion gap |
+
+**Metadata convention (D-027).** The between-situation axes describe the **situation**, and both variants of a pair carry the situation's values; `condition` is what distinguishes the variants. So a request variant reads `attempt_presented: "yes"` when its signal twin presents an attempt, even though the control itself never shows one — read it as "the control for a situation whose signal item presented an attempt." Analysis slices the 26 signal items by axis and joins their controls via `pair_id`.
 
 Construction rules fixed during dataset design:
 

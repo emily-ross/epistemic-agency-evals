@@ -44,13 +44,13 @@ def scaffolding_vs_substitution():
     return Task(
         dataset=json_dataset("data/prompts.json"),
         solver=generate(),
-        scorer=model_graded_qa(template=RUBRIC, model="anthropic/claude-opus-4-8"),
+        scorer=model_graded_qa(template=RUBRIC, model=MODEL),
     )
 ```
 
 - **dataset** — a fixed, versioned JSONL of prompts (the artifact that makes runs comparable across models and over time). Every sample carries `metadata` (e.g. `domain`, `signal_strength`) so results can be sliced later.
 - **solver** — how the model is prompted. Default `generate()`; put `system_message(...)` ahead of it in the solver list when needed.
-- **scorer** — `model_graded_qa()` with a custom multi-criterion rubric and an **independent grader model** (a *different* family than the model under test), at **temperature 0**.
+- **scorer** — `model_graded_qa()` with a custom multi-criterion rubric and an **independent grader model** (a *different* family than the model under test), at **temperature 0** if that field still exists.
 
 ## Common commands
 ```bash
@@ -70,9 +70,6 @@ This repo keeps an append-only decision log (`DECISIONS.md`) and known-limitatio
 - **Pin `inspect-ai`.** Near-daily releases; don't float the version.
 - **Always `--limit` during dev.** Model-graded scoring doubles API calls; keep dev runs small (pilot budget ~$10–30 total).
 - **Never commit secrets.** Keys live in `.env` (git-ignored). `logs/` and `inspect-env/` are git-ignored too.
-- **Manually review every dataset prompt.** Model-generated prompts drift generic fast — cut ruthlessly. Record `domain` and learning-signal strength in each sample's `metadata`.
-- **Grader reliability is the make-or-break.** "Scaffolding vs. substitution" is a soft construct. Validate the grader against blind human grading (~20 transcripts) and report the agreement % in the README. Pre-committed fallback if agreement is poor: switch to the **false-premise-challenge** behavior (§4.2's other half — near-objective scoring).
-- **Published logs are public evidence.** The bundled log site under `docs/` gets published; make sure transcripts contain nothing that shouldn't be public.
 
 ## Planned layout
 ```

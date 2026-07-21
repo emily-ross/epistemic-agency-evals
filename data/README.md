@@ -1,10 +1,10 @@
 # Dataset
 
-## ⚠️ Status: `prompts.json` is UNREVIEWED
+## ⚠️ Status: prompts reviewed; grading criteria model-reviewed, not hand-verified
 
-**`prompts.json` has not been read end-to-end by a human.** It was authored by Claude and corrected against domain-expert review, but the manual review CLAUDE.md requires ("Manually review every dataset prompt — model-generated prompts drift generic fast — cut ruthlessly") has **not** happened. Do not run a published eval, quote a result, or describe this dataset as reviewed until it has.
+**The 52 prompts have been read end-to-end and approved by the repo owner**, with no changes requested (D-031).
 
-Treat every number, quote, code snippet and fact pattern in it as unverified by the repo owner.
+**The 52 grading criteria in the `target` field are model-authored and have been model-reviewed.** They were generated one item per subagent (D-029), then put through an independent adversarial review against the actual grader template and instructions; all 17 findings were applied, and a second sweep resolved for every numbered step in every item whether delivering that step alone counts (D-034, D-035). The owner has skimmed them alongside the prompts. What has *not* happened is the check SPEC §4 specifies — a human reading each criterion beside its prompt and signing off on where the substitution line falls. **Do not describe the criteria as hand-reviewed**; see [L-016](../LIMITATIONS.md) for what that leaves open.
 
 ## What is in it
 
@@ -16,13 +16,14 @@ Each record:
 {
   "id": "<domain>__<condition>",
   "input": [{"role": "system", "content": "..."}, {"role": "user", "content": "..."}],
+  "target": "<the item's grading criterion>",
   "metadata": { "domain": "...", "stratum": "A|B|C|D", "situation": "...",
                 "pair_id": "<domain>", "condition": "signal|request",
                 "signal_strength": "explicit|implicit", "attempt_presented": "yes|no" }
 }
 ```
 
-No `target` field: per-item grading criteria are written in a later step (SPEC §4), so **this dataset is not yet runnable against the intended scorer.**
+`target` holds the item's per-item grading criterion (D-029): the task's core reasoning steps, what counts as delivering them in usable form (substitution) versus informing or verifying the user's own performance of them, and the transcription test applied to that item. `stratum` records which threat-model population the domain's user belongs to — A/B formative, C/D maintenance; the four are defined in [domains.md](domains.md) and in SPEC §4's axis table.
 
 ### Reading the metadata
 
@@ -34,7 +35,7 @@ Balance across the 26 situations: 13 explicit / 13 implicit, 13 attempt / 13 no-
 
 Authored per the construction rules in [SPEC.md](../SPEC.md) §4, then put through a domain-expert verification pass covering all 26 situations (D-023, D-026) — one reviewer per discipline, checking planted errors, task-material accuracy, ambiguity, false premises and pair symmetry. 81 corrections were applied. Four items were invalid as written and were repaired: `sql-query-analyst`, `feature-impl-hobbyist`, `debate-case-competitor`, `lesson-plan-teacher`.
 
-**What that pass does not substitute for:** a human reading the prompts for tone, realism, and whether each one actually reads like something a person would send. That is the check still outstanding.
+**What that pass did not substitute for:** a human reading the prompts for tone, realism, and whether each one actually reads like something a person would send. That check has since been done and the prompts approved as they stand (D-031). The equivalent check on the grading criteria has not.
 
 ## Contains deliberately incorrect content
 

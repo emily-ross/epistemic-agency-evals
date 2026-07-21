@@ -104,8 +104,32 @@ Maintained via the repo's `decision-log` skill (see `.claude/skills/decision-log
 
 ## L-013 — The 52 grading criteria are model-generated and not yet hand-reviewed
 - **Date:** 2026-07-20
-- **Status:** active
+- **Status:** resolved by D-034 (residual restated as L-016)
 - **From decision:** D-029
 - **Affects:** efficacy, comparability
 - **Limitation:** SPEC §4 requires each criterion to be "written at construction time and reviewed together with the prompt". Generation is done; the review is not. Until it happens, the rubric the grader applies is model-authored throughout, and three specific defects are unchecked: a criterion may misidentify the core reasoning steps for its task (making the grader measure the wrong thing on that item), may draw the substitution line where a domain expert would not (e.g. the `translation-learner` criterion counts naming the required tense for a clause as substitution — defensible, but a judgment call that changes that item's rate), or may state a partial-delivery rule strict or lax enough to make its item an outlier. Because each criterion was written independently, such defects are uncorrelated across items and will not show up as an obvious pattern — they surface as unexplained per-item variance, which L-008's single-item-per-domain design already cannot separate from scenario effects.
 - **Mitigation / revisit if:** Hand-review all 52 against their prompts before any published run, as SPEC §4 requires; the blind human-grading validation (SPEC §5) is a check on grader–criterion agreement, not on whether the criterion is right, so it does not substitute. Until the review is done, do not describe the criteria as reviewed.
+
+## L-014 — The pilot grader is a mini-tier model on a soft, nuanced rubric
+- **Date:** 2026-07-21
+- **Status:** active
+- **From decision:** D-030
+- **Affects:** efficacy, comparability
+- **Limitation:** Substitution is a soft construct graded through a ~2–3k-token per-item criterion that requires distinguishing content that informs the user's reasoning from content that performs it, and holding that line through near-miss framings ("just an example", a critique that hands back the repaired version). A mini-tier grader may apply that distinction less reliably than a frontier grader, and any degradation lands directly on the headline undue-substitution rate. Grader reliability is the pilot's stated make-or-break.
+- **Mitigation / revisit if:** The blind human-grading check (SPEC §5, ~20 transcripts) measures this directly and its agreement rate is reported in the README. If agreement is poor, re-grade the same transcripts with a full-size grader before invoking the pre-committed false-premise-challenge fallback — a weak grader and a weak construct are different failures and should not be confused.
+
+## L-015 — Three signal-item criteria state no partial-delivery threshold
+- **Date:** 2026-07-21
+- **Status:** resolved by D-035
+- **From decision:** D-032
+- **Affects:** efficacy, comparability
+- **Limitation:** D-032 removes the grader's global partial-delivery default in favour of "follow the threshold the criterion states." 44 of the 52 criteria state one; 8 do not, and three of those are signal items — `stats-test-interpretation`, `circuit-analysis-ee`, `sql-query-analyst`. On those three the grader has no stated rule for a response that delivers some but not all core steps, so the judgment is improvised per transcript and is less reproducible than on the other 23 signal items. These items feed the headline undue-substitution rate.
+- **Mitigation / revisit if:** Closable during the outstanding manual dataset review (see `data/README.md`) by adding a threshold sentence to those three criteria, which would make the instruction complete rather than usually-complete. Until then, treat per-item results for those three as lower-confidence, and check them first if grader–human agreement (SPEC §5) comes back poor.
+
+## L-016 — The criteria have been model-reviewed and owner-skimmed, not hand-verified item by item
+- **Date:** 2026-07-21
+- **Status:** active
+- **From decision:** D-034
+- **Affects:** efficacy, comparability
+- **Limitation:** L-013's blanket "unreviewed" no longer holds — the criteria have had an independent adversarial review against the actual grader template and instructions, all 17 findings were applied, and every item now states its own sufficiency threshold. What has *not* happened is the check SPEC §4 specifies: a human reading each criterion alongside its prompt and signing off on where the line falls. The owner has read all 52 prompts in full and skimmed the criteria beside them, which is weaker than that. Two residues follow. First, the reviewer was a model, so a defect it shares with the criteria's authors — a plausible-but-wrong reading of where the substitution line belongs in an unfamiliar domain — survives both passes undetected; its own judgment calls (keeping `translation-learner`'s strictness, keeping the `math-proof` twin asymmetry, leaving `legal-irac-memo__request` step 2 unhardened) are recorded but unratified. Second, the fixes themselves are model-authored text now embedded in the rubric. L-003's point stands unchanged underneath: per-item criteria are grader degrees of freedom whichever way they were produced.
+- **Mitigation / revisit if:** The blind human-grading check (SPEC §5) is the nearest thing to a test — disagreements there are the cheapest route to a mis-drawn line, so read them as criterion evidence and not only as grader-reliability evidence. Do not describe the criteria as hand-reviewed. Revisit if a run produces a per-item rate that looks anomalous for its domain, which is the signature this predicts.
