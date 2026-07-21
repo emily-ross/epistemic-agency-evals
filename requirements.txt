@@ -1,3 +1,5 @@
 # Pin inspect-ai — near-daily releases; keep this exact for reproducibility.
 inspect-ai==0.3.247
 anthropic
+# openai — for the independent grader (D-030), not for a model under test.
+openai
